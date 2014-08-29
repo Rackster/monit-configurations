@@ -1,7 +1,8 @@
 check process messagebus with pidfile /var/run/messagebus.pid
     group system
-    start program "/etc/init.d/messagebus start"
-    stop program "/etc/init.d/messagebus stop"
+    start program   "/etc/init.d/messagebus start"
+    restart program "/etc/init.d/messagebus restart"
+    stop program    "/etc/init.d/messagebus stop"
     if 5 restarts within 5 cycles then timeout
     depends on messagebus_rc
 

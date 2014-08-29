@@ -1,7 +1,8 @@
 check process rpcbind with pidfile /var/run/rpcbind.pid
     group system
-    start program "/etc/init.d/rpcbind start"
-    stop program "/etc/init.d/rpcbind stop"
+    start program   "/etc/init.d/rpcbind start"
+    restart program "/etc/init.d/rpcbind restart"
+    stop program    "/etc/init.d/rpcbind stop"
     if failed port 111 type tcp then restart
     if failed port 111 type udp then restart
     if 5 restarts within 5 cycles then timeout

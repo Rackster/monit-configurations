@@ -1,7 +1,8 @@
 check process webvirtmgr-novnc with pidfile /var/run//webvirtmgr/webvirtmgr-novnc.pid
     group virtualization
-    start program "/etc/init.d/webvirtmgr-novnc start"
-    stop program "/etc/init.d/webvirtmgr-novnc stop"
+    start program   "/etc/init.d/webvirtmgr-novnc start"
+    restart program "/etc/init.d/webvirtmgr-novnc restart"
+    stop program    "/etc/init.d/webvirtmgr-novnc stop"
     if 5 restarts within 5 cycles then timeout
     depends on webvirtmgr-novnc_rc
 

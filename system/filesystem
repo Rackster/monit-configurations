@@ -1,4 +1,4 @@
 check device rootfs with path /
     group system
-    if space usage > 80% then alert
+    if space usage > 90% then alert
     mode passive

@@ -1,7 +1,8 @@
 check process haldaemon with pidfile /var/run/haldaemon.pid
     group system
-    start program "/etc/init.d/haldaemon start"
-    stop program "/etc/init.d/haldaemon stop"
+    start program   "/etc/init.d/haldaemon start"
+    restart program "/etc/init.d/haldaemon restart"
+    stop program    "/etc/init.d/haldaemon stop"
     if 5 restarts within 5 cycles then timeout
     depends on haldaemon_rc
 

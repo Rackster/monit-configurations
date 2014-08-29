@@ -1,7 +1,8 @@
 check process tuned with pidfile /var/run/tuned/tuned.pid
     group performance
-    start program "/etc/init.d/tuned start"
-    stop program "/etc/init.d/tuned stop"
+    start program   "/etc/init.d/tuned start"
+    restart program "/etc/init.d/tuned restart"
+    stop program    "/etc/init.d/tuned stop"
     if 5 restarts within 5 cycles then timeout
     depends on tuned_rc
 

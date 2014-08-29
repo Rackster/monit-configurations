@@ -1,7 +1,8 @@
 check process libvirtd with pidfile /var/run/libvirtd.pid
     group virtualization
-    start program "/etc/init.d/libvirtd start"
-    stop program "/etc/init.d/libvirtd stop"
+    start program   "/etc/init.d/libvirtd start"
+    restart program "/etc/init.d/libvirtd restart"
+    stop program    "/etc/init.d/libvirtd stop"
     if failed unixsocket /var/run/libvirt/libvirt-sock then restart
     if failed unixsocket /var/run/libvirt/libvirt-sock-ro then restart
     if 5 restarts within 5 cycles then timeout

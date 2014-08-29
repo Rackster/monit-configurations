@@ -1,8 +1,9 @@
 check process sanlock with pidfile /var/run/sanlock/sanlock.pid
     group storage
-    start program "/etc/init.d/sanlock start"
+    start program   "/etc/init.d/sanlock start"
+    restart program "/etc/init.d/sanlock restart"
+    stop program    "/etc/init.d/sanlock stop"
     if failed unixsocket /var/run/sanlock/sanlock.sock then restart
-    stop program "/etc/init.d/sanlock stop"
     if 5 restarts within 5 cycles then timeout
     depends on sanlock_rc
 

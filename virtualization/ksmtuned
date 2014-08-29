@@ -1,7 +1,8 @@
 check process ksmtuned with pidfile /var/run/ksmtune.pid
     group virtualization
-    start program "/etc/init.d/ksmtuned start"
-    stop program "/etc/init.d/ksmtuned stop"
+    start program   "/etc/init.d/ksmtuned start"
+    restart program "/etc/init.d/ksmtuned restart"
+    stop program    "/etc/init.d/ksmtuned stop"
     if 5 restarts within 5 cycles then timeout
     depends on ksmtuned_rc
 

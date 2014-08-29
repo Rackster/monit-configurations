@@ -1,16 +1,18 @@
 check process ovs-vswitchd with pidfile /var/run/openvswitch/ovs-vswitchd.pid
     group virtualization
     group openvswitch
-    start program "/etc/init.d/openvswitch start"
-    stop program "/etc/init.d/openvswitch stop"
+    start program   "/etc/init.d/openvswitch start"
+    restart program "/etc/init.d/openvswitch restart"
+    stop program    "/etc/init.d/openvswitch stop"
     if 5 restarts within 5 cycles then timeout
     depends on openvswitch_rc
 
 check process ovsdb-server with pidfile /var/run/openvswitch/ovsdb-server.pid
     group virtualization
     group openvswitch
-    start program "/etc/init.d/openvswitch start"
-    stop program "/etc/init.d/openvswitch stop"
+    start program   "/etc/init.d/openvswitch start"
+    restart program "/etc/init.d/openvswitch restart"
+    stop program    "/etc/init.d/openvswitch stop"
     if failed unixsocket /var/run/openvswitch/db.sock then restart
     if 5 restarts within 5 cycles then timeout
     depends on openvswitch_rc

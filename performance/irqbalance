@@ -1,7 +1,8 @@
 check process irqbalance with pidfile /var/run/irqbalance.pid
     group performance
-    start program "/etc/init.d/irqbalance start"
-    stop program "/etc/init.d/irqbalance stop"
+    start program   "/etc/init.d/irqbalance start"
+    restart program "/etc/init.d/irqbalance restart"
+    stop program    "/etc/init.d/irqbalance stop"
     if 5 restarts within 5 cycles then timeout
     depends on irqbalance_rc
 

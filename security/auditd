@@ -1,7 +1,8 @@
 check process auditd with pidfile /var/run/auditd.pid
     group security
-    start program "/etc/init.d/auditd start"
-    stop program "/etc/init.d/auditd stop"
+    start program   "/etc/init.d/auditd start"
+    restart program "/etc/init.d/auditd restart"
+    stop program    "/etc/init.d/auditd stop"
     if 5 restarts within 5 cycles then timeout
     depends on auditd_rc
 

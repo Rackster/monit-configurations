@@ -1,7 +1,8 @@
 check process vdsmd with pidfile /var/run/vdsm/vdsmd.pid
     group virtualization
-    start program "/etc/init.d/vdsmd start"
-    stop program "/etc/init.d/vdsmd stop"
+    start program   "/etc/init.d/vdsmd start"
+    restart program "/etc/init.d/vdsmd restart"
+    stop program    "/etc/init.d/vdsmd stop"
     if 5 restarts within 5 cycles then timeout
     depends on vdsmd_rc
 

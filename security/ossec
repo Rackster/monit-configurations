@@ -2,8 +2,9 @@ check process ossec-analysisd matching "ossec-analysisd"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
@@ -11,8 +12,9 @@ check process ossec-execd matching "ossec-execd"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
@@ -20,8 +22,9 @@ check process ossec-logcollec matching "ossec-logcollec"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
@@ -29,8 +32,9 @@ check process ossec-maild matching "ossec-maild"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
@@ -38,8 +42,19 @@ check process ossec-monitord matching "ossec-monitord"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on ossec_rc
+
+check process ossec-remoted matching "ossec-remoted"
+    group security
+    group nids
+    group ossec
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
@@ -47,8 +62,9 @@ check process ossec-syscheckd matching "ossec-syscheckd"
     group security
     group nids
     group ossec
-    start program "/etc/init.d/ossec start"
-    stop  program "/etc/init.d/ossec stop"
+    start program   "/etc/init.d/ossec start"
+    restart program "/etc/init.d/ossec restart"
+    stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 

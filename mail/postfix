@@ -1,7 +1,8 @@
 check process postfix with pidfile /var/spool/postfix/pid/master.pid
     group mail
-    start program "/etc/init.d/postfix start"
-    stop  program "/etc/init.d/postfix stop"
+    start program   "/etc/init.d/postfix start"
+    restart program "/etc/init.d/postfix restart"
+    stop  program   "/etc/init.d/postfix stop"
     if failed port 25 protocol smtp then restart
     if 5 restarts within 5 cycles then timeout
     depends on postfix_rc

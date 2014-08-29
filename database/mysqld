@@ -1,8 +1,10 @@
 check process mysqld with pidfile /var/run/mysqld/mysqld.pid
     group database
-    start program "/etc/init.d/mysqld start"
-    stop program "/etc/init.d/mysqld stop"
+    start program   "/etc/init.d/mysqld start"
+    restart program "/etc/init.d/mysqld restart"
+    stop program    "/etc/init.d/mysqld stop"
     if failed port 3306 protocol mysql then restart
+    if failed unixsocket /var/lib/mysql/mysql.sock then restart
     if 5 restarts within 5 cycles then timeout
     depends on mysqld_rc
 

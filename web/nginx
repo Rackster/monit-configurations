@@ -1,7 +1,8 @@
 check process nginx with pidfile /var/run/nginx.pid
     group web
-    start program "/etc/init.d/nginx start"
-    stop program "/etc/init.d/nginx stop"
+    start program   "/etc/init.d/nginx start"
+    restart program "/etc/init.d/nginx restart"
+    stop program    "/etc/init.d/nginx stop"
     if failed port 80 protocol http then restart
     if 5 restarts within 5 cycles then timeout
     depends on nginx_rc
