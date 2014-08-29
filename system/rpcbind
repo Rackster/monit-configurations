@@ -1,0 +1,15 @@
+check process rpcbind with pidfile /var/run/rpcbind.pid
+    group system
+    start program "/etc/init.d/rpcbind start"
+    stop program "/etc/init.d/rpcbind stop"
+    if failed port 111 type tcp then restart
+    if failed port 111 type udp then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on rpcbind_rc
+
+check file rpcbind_rc with path /etc/init.d/rpcbind
+    group system
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

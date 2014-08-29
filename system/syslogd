@@ -1,0 +1,20 @@
+check process syslogd with pidfile /var/run/syslogd.pid
+    group system
+    group syslog
+    start program "/etc/init.d/rsyslog start"
+    stop program "/etc/init.d/rsyslog stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on syslogd_rc
+
+check file syslogd_rc with path /etc/init.d/rsyslog
+    group system
+    group syslog
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor
+
+check file syslogd_file with path /var/log/messages
+    group system
+    group syslog
+    if timestamp > 65 minutes then alert

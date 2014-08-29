@@ -1,0 +1,13 @@
+check process tuned with pidfile /var/run/tuned/tuned.pid
+    group performance
+    start program "/etc/init.d/tuned start"
+    stop program "/etc/init.d/tuned stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on tuned_rc
+
+check file tuned_rc with path /etc/init.d/tuned
+    group performance
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

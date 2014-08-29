@@ -1,0 +1,11 @@
+check process udevd matching "udevd"
+    group system
+    start program "/sbin/udevd --daemon"
+    depends on udevd_bin
+
+check file udevd_bin with path /sbin/udevd
+    group system
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

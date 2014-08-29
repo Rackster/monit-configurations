@@ -1,0 +1,15 @@
+check process libvirtd with pidfile /var/run/libvirtd.pid
+    group virtualization
+    start program "/etc/init.d/libvirtd start"
+    stop program "/etc/init.d/libvirtd stop"
+    if failed unixsocket /var/run/libvirt/libvirt-sock then restart
+    if failed unixsocket /var/run/libvirt/libvirt-sock-ro then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on libvirtd_rc
+
+check file libvirtd_rc with path /etc/init.d/libvirtd
+    group virtualization
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

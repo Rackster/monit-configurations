@@ -1,0 +1,13 @@
+check process auditd with pidfile /var/run/auditd.pid
+    group security
+    start program "/etc/init.d/auditd start"
+    stop program "/etc/init.d/auditd stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on auditd_rc
+
+check file auditd_rc with path /etc/init.d/auditd
+    group security
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

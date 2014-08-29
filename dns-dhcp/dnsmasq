@@ -1,0 +1,15 @@
+check process dnsmasq with pidfile /var/run/dnsmasq.pid
+    group dns
+    start program "/etc/init.d/dnsmasq start"
+    stop program "/etc/init.d/dnsmasq stop"
+    if failed port 53 type tcp protocol dns then restart
+    if failed port 53 type udp protocol dns then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on dnsmasq_rc
+
+check file dnsmasq_rc with path /etc/init.d/dnsmasq
+    group dns
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

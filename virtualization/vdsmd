@@ -1,0 +1,13 @@
+check process vdsmd with pidfile /var/run/vdsm/vdsmd.pid
+    group virtualization
+    start program "/etc/init.d/vdsmd start"
+    stop program "/etc/init.d/vdsmd stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on vdsmd_rc
+
+check file vdsmd_rc with path /etc/init.d/vdsmd
+    group virtualization
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

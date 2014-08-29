@@ -1,0 +1,13 @@
+check process webvirtmgr-novnc with pidfile /var/run//webvirtmgr/webvirtmgr-novnc.pid
+    group virtualization
+    start program "/etc/init.d/webvirtmgr-novnc start"
+    stop program "/etc/init.d/webvirtmgr-novnc stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on webvirtmgr-novnc_rc
+
+check file webvirtmgr-novnc_rc with path /etc/init.d/webvirtmgr-novnc
+    group virtualization
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor
