@@ -18,7 +18,7 @@ check process ossec-execd matching "ossec-execd"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
-check process ossec-logcollec matching "ossec-logcollec"
+check process ossec-logcollector matching "ossec-logcollector"
     group security
     group nids
     group ossec
