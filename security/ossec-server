@@ -1,4 +1,4 @@
-check process ossec-agentd matching "ossec-agentd"
+check process ossec-analysisd matching "ossec-analysisd"
     group security
     group nids
     group ossec
@@ -8,7 +8,7 @@ check process ossec-agentd matching "ossec-agentd"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
-check process ossec-execd matching "ossec-execd"
+check process ossec-maild matching "ossec-maild"
     group security
     group nids
     group ossec
@@ -18,7 +18,7 @@ check process ossec-execd matching "ossec-execd"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
-check process ossec-logcollec matching "ossec-logcollec"
+check process ossec-monitord matching "ossec-monitord"
     group security
     group nids
     group ossec
@@ -28,7 +28,7 @@ check process ossec-logcollec matching "ossec-logcollec"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
 
-check process ossec-syscheckd matching "ossec-syscheckd"
+check process ossec-remoted matching "ossec-remoted"
     group security
     group nids
     group ossec
@@ -37,12 +37,3 @@ check process ossec-syscheckd matching "ossec-syscheckd"
     stop  program   "/etc/init.d/ossec stop"
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
-
-check file ossec_rc with path /etc/init.d/ossec
-    group security
-    group nids
-    group ossec
-    if failed checksum then unmonitor
-    if failed permission 0555 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid ossec then unmonitor
