@@ -1,0 +1,15 @@
+check process memcached with pidfile /var/run/memcached/memcached.pid
+    group database
+    start program   "/etc/init.d/memcached start"
+    restart program "/etc/init.d/memcached restart"
+    stop program    "/etc/init.d/memcached stop"
+    if failed port 11211 protocol memcache then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on memcached_rc
+
+check file memcached_rc with path /etc/init.d/memcached
+    group database
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

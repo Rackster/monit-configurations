@@ -1,0 +1,17 @@
+check process postgrey with pidfile /var/run/postgrey.pid
+    group mail
+    group antispam
+    start program   "/etc/init.d/postgrey start"
+    restart program "/etc/init.d/postgrey restart"
+    stop  program   "/etc/init.d/postgrey stop"
+    if failed unixsocket /var/spool/postfix/postgrey/socket then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on postgrey_rc
+
+check file postgrey_rc with path /etc/init.d/postgrey
+    group mail
+    group antispam
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

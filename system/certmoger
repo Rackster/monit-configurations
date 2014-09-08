@@ -1,0 +1,14 @@
+check process certmoger with pidfile /var/run/certmoger.pid
+    group system
+    start program   "/etc/init.d/certmoger start"
+    restart program "/etc/init.d/certmoger restart"
+    stop program    "/etc/init.d/certmoger stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on certmoger_rc
+
+check file certmoger_rc with path /etc/init.d/certmoger
+    group system
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

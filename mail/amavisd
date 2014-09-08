@@ -1,0 +1,18 @@
+check process amavisd with pidfile /var/run/amavis/amavisd.pid
+    group mail
+    group antispam
+    start program   "/etc/init.d/amavis start"
+    restart program "/etc/init.d/amavis restart"
+    stop  program   "/etc/init.d/amavis stop"
+    if failed port 10024 then restart
+    if failed unixsocket /var/spool/amavisd/amavisd.sock then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on amavisd_rc
+
+check file amavisd_rc with path /etc/init.d/amavis
+    group mail
+    group antispam
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor

@@ -1,0 +1,15 @@
+check process pure-ftpd with pidfile /var/run/pure-ftpd.pid
+    group web
+    start program   "/etc/init.d/pure-ftpd start"
+    restart program "/etc/init.d/pure-ftpd restart"
+    stop program    "/etc/init.d/pure-ftpd stop"
+    if failed port 21 protocol ftp then restart
+    if 5 restarts within 5 cycles then timeout
+    depends on pure-ftpd_rc
+
+check file pure-ftpd_rc with path /etc/init.d/pure-ftpd
+    group web
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor
