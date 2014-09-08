@@ -3,6 +3,7 @@ check process supervisord with pidfile /var/run/supervisord.pid
     start program   "/etc/init.d/supervisord start"
     restart program "/etc/init.d/supervisord restart"
     stop program    "/etc/init.d/supervisord stop"
+    if failed unixsocket /var/tmp/supervisor.sock then restart
     if 5 restarts within 5 cycles then timeout
     depends on supervisord_rc
 
