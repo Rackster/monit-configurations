@@ -1,0 +1,14 @@
+check process vnstatd with pidfile /var/run/vnstat.pid
+    group network
+    start program   "/etc/init.d/vnstat start"
+    restart program "/etc/init.d/vnstat restart"
+    stop program    "/etc/init.d/vnstat stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on vnstatd_rc
+
+check file vnstatd_rc with path /etc/init.d/vnstat
+    group network
+    if failed checksum then unmonitor
+    if failed permission 755 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor
