@@ -1,0 +1,14 @@
+check process lvmetad with pidfile /var/run/lvmetad.pid
+    group storage
+    start program   "/etc/init.d/lvm2-lvmetad start"
+    restart program "/etc/init.d/lvm2-lvmetad restart"
+    stop program    "/etc/init.d/lvm2-lvmetad stop"
+    if 5 restarts within 5 cycles then timeout
+    depends on lvmetad_rc
+
+check file lvmetad_rc with path /etc/init.d/lvm2-lvmetad
+    group storage
+    if failed checksum then unmonitor
+    if failed permission 555 then unmonitor
+    if failed uid root then unmonitor
+    if failed gid root then unmonitor
