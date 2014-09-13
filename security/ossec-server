@@ -35,5 +35,6 @@ check process ossec-remoted matching "ossec-remoted"
     start program   "/etc/init.d/ossec start"
     restart program "/etc/init.d/ossec restart"
     stop  program   "/etc/init.d/ossec stop"
+    if failed port 1514 type udp then restart
     if 5 restarts within 5 cycles then timeout
     depends on ossec_rc
