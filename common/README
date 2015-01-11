@@ -1,0 +1,3 @@
+Make sure that this directory is not included from within
+the main monit configuration file (e.g. /etc/monit.conf),
+as it will complain about bad syntax otherwise.
