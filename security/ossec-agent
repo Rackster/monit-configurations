@@ -5,5 +5,6 @@ check process ossec-agentd matching "ossec-agentd"
     start program   "/etc/init.d/ossec start"
     restart program "/etc/init.d/ossec restart"
     stop  program   "/etc/init.d/ossec stop"
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on ossec_rc

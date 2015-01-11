@@ -4,12 +4,10 @@ check process acpid with pidfile /var/run/acpid.pid
     restart program "/etc/init.d/acpid restart"
     stop program    "/etc/init.d/acpid stop"
     if failed unixsocket /var/run/acpid.socket then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on acpid_rc
 
 check file acpid_rc with path /etc/init.d/acpid
     group system
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

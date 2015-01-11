@@ -3,12 +3,10 @@ check process iscsid with pidfile /var/run/iscsid.pid
     start program   "/etc/init.d/iscsid start"
     restart program "/etc/init.d/iscsid restart"
     stop program    "/etc/init.d/iscsid stop"
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on iscsid_rc
 
 check file iscsid_rc with path /etc/init.d/iscsid
     group storage
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

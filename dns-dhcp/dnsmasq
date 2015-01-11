@@ -6,7 +6,8 @@ check process dnsmasq-dns with pidfile /var/run/dnsmasq.pid
     stop program    "/etc/init.d/dnsmasq stop"
     if failed port 53 type tcp protocol dns then restart
     if failed port 53 type udp protocol dns then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on dnsmasq_rc
 
 check process dnsmasq-dhcp with pidfile /var/run/dnsmasq.pid
@@ -16,13 +17,11 @@ check process dnsmasq-dhcp with pidfile /var/run/dnsmasq.pid
     restart program "/etc/init.d/dnsmasq restart"
     stop program    "/etc/init.d/dnsmasq stop"
     if failed port 67 type udp then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on dnsmasq_rc
 
 check file dnsmasq_rc with path /etc/init.d/dnsmasq
     group dns
     group dnsmasq
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

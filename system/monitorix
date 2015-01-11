@@ -4,13 +4,11 @@ check process monitorix with pidfile /var/run/monitorix.pid
     start program   "/etc/init.d/monitorix start"
     restart program "/etc/init.d/monitorix restart"
     stop program    "/etc/init.d/monitorix stop"
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on monitorix_rc
 
 check file monitorix_rc with path /etc/init.d/monitorix
     group system
     group monitoring
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

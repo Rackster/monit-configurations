@@ -6,14 +6,12 @@ check process clamd with pidfile /var/run/clamav/clamd.pid
     restart program "/etc/init.d/clamd restart"
     stop  program   "/etc/init.d/clamd stop"
     if failed unixsocket /var/run/clamav/clamd.sock protocol clamav then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on clamd_rc
 
 check file clamd_rc with path /etc/init.d/clamd
     group security
     group antivirus
     group clamav
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

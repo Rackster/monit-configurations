@@ -1,0 +1,2 @@
+if changed pid then alert
+if changed ppid then alert

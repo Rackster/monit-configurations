@@ -4,12 +4,10 @@ check process multipathd with pidfile /var/run/multipathd.pid
     restart program "/etc/init.d/multipathd restart"
     stop program    "/etc/init.d/multipathd stop"
     if failed unixsocket /var/run/multipathd.sock then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on multipathd_rc
 
 check file multipathd_rc with path /etc/init.d/multipathd
     group performance
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

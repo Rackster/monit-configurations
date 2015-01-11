@@ -4,16 +4,14 @@ check process syslogd with pidfile /var/run/syslogd.pid
     start program   "/etc/init.d/rsyslog start"
     restart program "/etc/init.d/rsyslog restart"
     stop program    "/etc/init.d/rsyslog stop"
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on syslogd_rc
 
 check file syslogd_rc with path /etc/init.d/rsyslog
     group system
     group syslog
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity
 
 check file syslogd_file with path /var/log/messages
     group system

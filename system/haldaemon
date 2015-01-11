@@ -3,12 +3,10 @@ check process haldaemon with pidfile /var/run/haldaemon.pid
     start program   "/etc/init.d/haldaemon start"
     restart program "/etc/init.d/haldaemon restart"
     stop program    "/etc/init.d/haldaemon stop"
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on haldaemon_rc
 
 check file haldaemon_rc with path /etc/init.d/haldaemon
     group system
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

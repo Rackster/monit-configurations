@@ -4,12 +4,10 @@ check process sanlock with pidfile /var/run/sanlock/sanlock.pid
     restart program "/etc/init.d/sanlock restart"
     stop program    "/etc/init.d/sanlock stop"
     if failed unixsocket /var/run/sanlock/sanlock.sock then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on sanlock_rc
 
 check file sanlock_rc with path /etc/init.d/sanlock
     group storage
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

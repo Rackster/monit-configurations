@@ -4,12 +4,10 @@ check process httpd with pidfile /var/run/httpd/httpd.pid
     restart program "/etc/init.d/httpd restart"
     stop program    "/etc/init.d/httpd stop"
     if failed port 80 protocol http then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on httpd_rc
 
 check file httpd_rc with path /etc/init.d/httpd
     group web
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity

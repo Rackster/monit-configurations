@@ -4,12 +4,10 @@ check process chronyd with pidfile /var/run/chronyd.pid
     restart program "/etc/init.d/chronyd restart"
     stop program    "/etc/init.d/chronyd stop"
     if failed port 123 type udp protocol ntp3 then restart
-    if 5 restarts within 5 cycles then timeout
+    include ../common/pidchange-alert
+    include ../common/restart-timeout
     depends on chronyd_rc
 
 check file chronyd_rc with path /etc/init.d/chronyd
     group system
-    if failed checksum then unmonitor
-    if failed permission 755 then unmonitor
-    if failed uid root then unmonitor
-    if failed gid root then unmonitor
+    include ../common/initd-integrity
