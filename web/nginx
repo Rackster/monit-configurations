@@ -4,10 +4,10 @@ check process nginx with pidfile /var/run/nginx.pid
     restart program "/etc/init.d/nginx restart"
     stop program    "/etc/init.d/nginx stop"
     if failed port 80 protocol http then restart
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on nginx_rc
 
 check file nginx_rc with path /etc/init.d/nginx
     group web
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

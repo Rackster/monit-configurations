@@ -3,10 +3,10 @@ check process haldaemon with pidfile /var/run/haldaemon.pid
     start program   "/etc/init.d/haldaemon start"
     restart program "/etc/init.d/haldaemon restart"
     stop program    "/etc/init.d/haldaemon stop"
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on haldaemon_rc
 
 check file haldaemon_rc with path /etc/init.d/haldaemon
     group system
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

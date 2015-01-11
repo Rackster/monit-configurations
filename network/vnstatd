@@ -3,10 +3,10 @@ check process vnstatd with pidfile /var/run/vnstat.pid
     start program   "/etc/init.d/vnstat start"
     restart program "/etc/init.d/vnstat restart"
     stop program    "/etc/init.d/vnstat stop"
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on vnstatd_rc
 
 check file vnstatd_rc with path /etc/init.d/vnstat
     group network
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

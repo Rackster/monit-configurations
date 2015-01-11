@@ -5,10 +5,10 @@ check process dovecot with pidfile /var/run/dovecot/master.pid
     stop  program   "/etc/init.d/dovecot stop"
     if failed port 110 protocol pop then restart
     if failed port 143 protocol imap then restart
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on dovecot_rc
 
 check file dovecot_rc with path /etc/init.d/dovecot
     group mail
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

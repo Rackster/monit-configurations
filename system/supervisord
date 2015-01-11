@@ -4,10 +4,10 @@ check process supervisord with pidfile /var/run/supervisord.pid
     restart program "/etc/init.d/supervisord restart"
     stop program    "/etc/init.d/supervisord stop"
     if failed unixsocket /var/tmp/supervisor.sock then restart
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on supervisord_rc
 
 check file supervisord_rc with path /etc/init.d/supervisord
     group system
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

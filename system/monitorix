@@ -4,11 +4,11 @@ check process monitorix with pidfile /var/run/monitorix.pid
     start program   "/etc/init.d/monitorix start"
     restart program "/etc/init.d/monitorix restart"
     stop program    "/etc/init.d/monitorix stop"
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on monitorix_rc
 
 check file monitorix_rc with path /etc/init.d/monitorix
     group system
     group monitoring
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

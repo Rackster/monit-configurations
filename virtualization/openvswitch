@@ -4,8 +4,8 @@ check process ovs-vswitchd with pidfile /var/run/openvswitch/ovs-vswitchd.pid
     start program   "/etc/init.d/openvswitch start"
     restart program "/etc/init.d/openvswitch restart"
     stop program    "/etc/init.d/openvswitch stop"
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on openvswitch_rc
 
 check process ovsdb-server with pidfile /var/run/openvswitch/ovsdb-server.pid
@@ -15,11 +15,11 @@ check process ovsdb-server with pidfile /var/run/openvswitch/ovsdb-server.pid
     restart program "/etc/init.d/openvswitch restart"
     stop program    "/etc/init.d/openvswitch stop"
     if failed unixsocket /var/run/openvswitch/db.sock then restart
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on openvswitch_rc
 
 check file openvswitch_rc with path /etc/init.d/openvswitch
     group virtualization
     group openvswitch
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

@@ -1,9 +1,9 @@
 check process udevd matching "udevd"
     group system
     start program "/sbin/udevd --daemon"
-    include ../common/pidchange-alert
+    include /etc/monit.d/common/pidchange-alert
     depends on udevd_bin
 
 check file udevd_bin with path /sbin/udevd
     group system
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity

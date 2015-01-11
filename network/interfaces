@@ -1,4 +1,4 @@
 check network eth0 with interface eth0
     if changed link then alert
     if failed link then restart
-    include ../common/restart-timeout
+    include /etc/monit.d/common/restart-timeout

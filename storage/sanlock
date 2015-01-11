@@ -4,10 +4,10 @@ check process sanlock with pidfile /var/run/sanlock/sanlock.pid
     restart program "/etc/init.d/sanlock restart"
     stop program    "/etc/init.d/sanlock stop"
     if failed unixsocket /var/run/sanlock/sanlock.sock then restart
-    include ../common/pidchange-alert
-    include ../common/restart-timeout
+    include /etc/monit.d/common/pidchange-alert
+    include /etc/monit.d/common/restart-timeout
     depends on sanlock_rc
 
 check file sanlock_rc with path /etc/init.d/sanlock
     group storage
-    include ../common/initd-integrity
+    include /etc/monit.d/common/initd-integrity
