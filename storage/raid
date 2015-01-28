@@ -1,0 +1,3 @@
+check file raid with path /proc/mdstat
+   group storage
+   if match "\[.*_.*\]" then alert
