@@ -1,0 +1,10 @@
+include /etc/monit.d/database/*
+include /etc/monit.d/dns-dhcp/*
+include /etc/monit.d/mail/*
+include /etc/monit.d/network/*
+include /etc/monit.d/performance/*
+include /etc/monit.d/security/*
+include /etc/monit.d/storage/*
+include /etc/monit.d/system/*
+include /etc/monit.d/virtualization/*
+include /etc/monit.d/web/*
